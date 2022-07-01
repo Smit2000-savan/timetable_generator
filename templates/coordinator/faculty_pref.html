@@ -1,0 +1,34 @@
+{% extends 'base_coor.html' %}
+
+{% block title%}Faculty Preferences{% endblock %}
+
+{% block content%}
+
+    <div class="container">
+        <h2 style="padding:2%"> Faculty Preferences</h2>
+       <div class="container2" align="middle">
+            {% if messages %}
+                {% for message in messages %}
+                    <h5 style="color: #181D31">{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="dcf-overflow-x-auto" tabindex="0" style="padding: 2% 8%;">
+<table class="dcf-table dcf-table-bordered dcf-table-striped dcf-w-100%">
+	<tbody>
+        <tr>
+            <td class="dcf-txt-center" scope="col">Professor Name</td>
+            <td class="dcf-txt-center" scope="row">No. of Preferences</td>
+
+		</tr>
+        {% for x in allp_pref%}
+                    <tr>
+                        <td class="dcf-txt-center" scope="col"> {{x.prof}} </td>
+                        <td class="dcf-txt-center" scope="col"> {{x.cnt}} </td>
+                    </tr>
+                {% endfor%}
+    </tbody>
+    </div>
+       
+
+{% endblock %}

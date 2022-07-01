@@ -1,0 +1,350 @@
+body {
+  font-family: "Montserrat";
+  background-color: #F0E9D2;
+  text-align: center;
+  color: #181D31;
+}
+
+.big-heading {
+  font-size: 3.5rem;
+  line-height: 1.5;
+}
+.container-fluid {
+  padding: 2% 15%;
+}
+
+.navbar {
+  /* padding: 0 0 4.5rem; */
+  background-color: #181D31;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: "Montserrat";
+}
+
+.btn {
+  margin: 5% 3% 5%;
+  background-color: #678983;
+}
+
+.title-image {
+  width: 35%;
+  /* transform: rotate(25deg); */
+  position: absolute;
+  top:20%;
+  right: 7%;
+}
+
+.addSlot{
+  padding: 2% 0;
+}
+
+.form-select{
+  text-align-last: center;
+}
+.select-opt{
+   padding: 0% 5%;
+}
+
+.slotSelect {
+  margin: 5% 0;
+}
+
+.login-card {
+  background-color: #E6DDC4;
+  color: #181D31;
+  border-radius: 1rem;
+  margin: 3rem 0;
+}
+/* 
+.updateAndDeleteBtn {
+  background-color: #FECD1A;
+} */
+
+.section-cl {
+  font-size: 3rem;
+  line-height: 0.5;
+}
+
+:root {
+  --bg-table-stripe: #f6f6f5;
+  --b-table: #e3e3e2;
+  --caption: #242423;
+}
+
+table {
+  background-color: transparent;
+  border-collapse: collapse;
+  font-family: "Montserrat";
+  color: #fff;
+  display: table;
+}
+
+td {
+  text-align: left
+}
+
+.dcf-txt-center {
+  text-align: center !important
+}
+
+.dcf-txt-left {
+  text-align: left !important
+}
+
+.dcf-txt-right {
+  text-align: right !important
+}
+
+.dcf-table caption {
+  color: var(--caption);
+  font-size: 1.13em;
+  font-weight: 700;
+  padding-bottom: .56rem
+}
+
+.dcf-table tdead {
+  font-size: .84em
+}
+
+.dcf-table tbody {
+  border-bottom: 1px solid var(--b-table);
+  border-top: 1px solid var(--b-table);
+  font-size: .84em
+}
+
+.dcf-table tfoot {
+  font-size: .84em
+}
+
+.dcf-table td,
+.dcf-table td {
+  padding-right: 1.78em
+}
+
+.dcf-table-bordered,
+.dcf-table-bordered td,
+.dcf-table-bordered td {
+  border: 1px solid var(--b-table)
+}
+
+.dcf-table-bordered td,
+.dcf-table-bordered td,
+.dcf-table-striped td,
+.dcf-table-striped td {
+  padding-left: 1em;
+  padding-right: 1em
+}
+
+.dcf-table-bordered tr:not(:last-child),
+.dcf-table-striped tr:not(:last-child) {
+  border-bottom: 1px solid var(--b-table)
+}
+
+.dcf-table-striped tbody tr:ntd-of-type(2n) {
+  background-color: var(--bg-table-stripe)
+} 
+
+.dcf-table tdead td,
+.dcf-table tdead td {
+  padding-bottom: .75em;
+  vertical-align: bottom
+}
+
+.dcf-table tbody td,
+.dcf-table tbody td,
+.dcf-table tfoot td,
+.dcf-table tfoot td {
+  padding-top: .75em;
+  vertical-align: top
+}
+
+.dcf-table tbody td,
+.dcf-table tbody td {
+  padding-bottom: .75em
+}
+
+.dcf-table-bordered tdead td {
+  padding-top: 1.33em
+}
+
+.dcf-wrapper-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-bottom: 1em;
+  position: relative;
+  right: 50%;
+  width: 100vw
+}
+
+@media only screen and (max-widtd:42.09em) {
+  .dcf-table-responsive tdead {
+    clip: rect(0 0 0 0);
+    -webkit-clip-patd: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap
+  }
+
+  .dcf-table-responsive tr {
+    display: block
+  }
+
+  .dcf-table-responsive td {
+    -webkit-column-gap: 3.16vw;
+    -moz-column-gap: 3.16vw;
+    column-gap: 3.16vw;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: left !important
+  }
+
+  .dcf-table-responsive.dcf-table-bordered,
+  .dcf-table-responsive.dcf-table-bordered tdead td {
+    border-width: 0
+  }
+
+  .dcf-table-responsive.dcf-table-bordered tbody td {
+    border-top-width: 0
+  }
+
+  .dcf-table-responsive:not(.dcf-table-bordered) tbody tr {
+    padding-bottom: .75em
+  }
+
+  .dcf-table-responsive:not(.dcf-table-bordered) tbody td {
+    padding-bottom: 0
+  }
+
+  .dcf-table-responsive:not(.dcf-table-bordered):not(.dcf-table-striped) tbody td {
+    padding-right: 0
+  }
+
+  .dcf-table-responsive.dcf-table-bordered tbody tr:last-child td:last-child {
+    border-bottom-width: 0
+  }
+
+  .dcf-table-responsive tbody td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 700;
+    padding-right: 1.78em
+  }
+}
+
+.dcf-overflow-x-auto {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch
+}
+
+.dcf-w-100\% {
+  width: 100% !important;
+}
+
+table tr {
+  background-color: #06283D;
+}
+
+table,
+tr,
+td {
+  border: 1px solid white;
+}
+
+.myTimetable td{
+  table-layout: fixed;
+  margin: auto;
+  width: 40%;
+  text-align: center;
+}
+
+
+/* .dropdown-cl {
+  padding: 2% 0%;
+} */
+.lectureTable tr {
+  display: table-cell;
+  background-color: #06283D;
+}
+
+.lectureTable tr td {
+  display: block;
+} 
+
+
+/*BODY {
+  font-family: Trebuchet MS;
+  margin:20px;
+  background-color: #600040;
+  background-color: white;
+}
+
+H1 {
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.myTimetable {
+  width:100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.myTimetable THEAD{
+  color: #FFFFFF;
+}
+
+.myTimetable TBODY {
+  background-color: #AAAAFF;
+  background-color: gainsboro;
+}
+
+.myTimetable TD {
+  border: 1px solid black;
+  padding: 6px;
+  text-align: center;
+}
+.myTimetable TBODY TR TD:first-child {
+  background-color: #FF0066;
+  background-color: wheat;
+  font-weight: bold;
+}
+
+.break, .lunch {
+  background-color: #FF0066 !important;
+  background-color: wheat !important;
+  font-style: italic;
+}
+
+.slot {
+  font-size: 10pt;
+  font-style: Courier;
+}
+
+.subject {
+  font-size: 10pt;
+  font-style: Serif;
+}
+
+.batch{
+  font-size: 10pt;
+  font-style: Times;
+}
+*/

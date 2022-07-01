@@ -1,0 +1,54 @@
+{% extends 'base_coor.html'%}
+
+{% block title %}Add Faculty{% endblock %}
+
+{% block content %}
+    <section class="section-cl">
+          <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center">
+              <div class="col-12 col-md-8 col-lg-6" style="width : 35.66666667%">
+                <div class="card shadow-2-strong login-card" style="margin-bottom:4%">
+                  <div class="card-body p-5 text-center">
+
+                    <h2>Add Faculty</h2><br>
+                   <div class="container2">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <h5 style="color: #DFF6FF">{{ message }}</h5>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <br>
+                    <form action="c_facultyRecord" method="post">
+                        {% csrf_token %}
+
+                    {% comment %} <h5 style="color: firebrick">{{notc}}</h5> {% endcomment %}
+                    <div class="form-outline mb-4" >
+                       <input type="email" name="emailID"  class="form-control form-control-lg" placeholder="Email ID" required autofocus/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="text" name="firstName"  class="form-control form-control-lg" placeholder="First Name" required/>
+                    </div>
+
+                     <div class="form-outline mb-4">
+                      <input type="text" name="lastName"  class="form-control form-control-lg" placeholder="Last Name" required/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="password" name="passwordFaculty"  class="form-control form-control-lg" placeholder="Enter password" required/>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+{% endblock %}
+
+

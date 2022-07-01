@@ -1,0 +1,63 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title> {% block title %} enter your Title in this block {% endblock %}</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css\style.css' %}">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/c3e73be5b6.js" crossorigin="anonymous"></script>
+ 
+</head>
+<body>
+      <nav class="navbar navbar-expand-lg navbar-dark " style="padding-bottom:0">
+
+        <a class="navbar-brand" href="#">DAIICT</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+          <ul class="navbar-nav ms-auto">
+
+            {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
+                  </li>
+
+              {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="# {% comment %} {% url 'p_login_user' %}{% endcomment %}">{% comment %} Login{% endcomment %}</a>
+                  </li>
+
+              {% endif %}
+          </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+
+
+
+    {% endblock %}
+
+      <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

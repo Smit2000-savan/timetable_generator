@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timetable</title>
+
+    {% load static %}
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} ">#}
+    <link rel="stylesheet" href={% static "css/style.css"%}>
+  </head>
+  <body>
+        <H1 style="color: firebrick">Lecture Timetable</H1>
+
+        <TABLE class="myTimetable">
+        <THEAD>
+            <TR>
+            <TH></TH>
+            <TH>Batch</TH>
+            <TH>Monday</TH>
+            <TH>Tuesday</TH>
+            <TH>Wednesday</TH>
+            <TH>Thursday</TH>
+            <TH>Friday</TH>     
+            </TR>
+        </THEAD>
+        <TBODY>
+            <TR>
+            <TD>8:30 - 9:45</TD>
+            <TD>
+                <div class="slot">SLOT</div>
+                <hr>
+                <div class="batch">B.Tech - I</div>
+                <hr>
+                <div class="batch">B.Tech - II</div>
+                <hr>
+                <div class="batch">B.Tech - III</div>
+                <hr>
+                <div class="batch">B.Tech - IV</div>
+                <hr>
+                <div class="batch">M.Tech - I</div>
+                <hr>
+                <div class="batch">M.Tech - II</div>
+                <hr>
+                <div class="batch">Msc(IT) - I</div>
+                <hr>
+                <div class="batch">Msc(IT) - II</div>
+                <hr>
+            </TD>
+{#            s4#}
+            <TD>
+                <div class="slot">SLOT 4</div>
+                <hr>
+                <!-- SLOT 4 -->
+                {% for i in slot4 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+{#            s1#}
+            <TD>
+                <div class="slot">SLOT 1</div>
+                <hr>
+                <!-- SLOT 1 -->
+                    {% for i in slot1 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                    {% endfor %}
+{#                (COURSE | PROFFESOR)#}
+            </TD>
+{#            s7#}
+            <TD>
+                <div class="slot">SLOT 7</div>
+                <hr>
+                <!-- SLOT 7 -->
+                {% for i in slot7 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+{#            s3#}
+            <TD>
+                <div class="slot">SLOT 3</div>
+                <hr>
+                <!-- SLOT 3 -->
+                {% for i in slot3 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+{#            s6#}
+            <TD>
+                <div class="slot">SLOT 6</div>
+                <hr>
+                <!-- SLOT 6 -->
+                {% for i in slot6 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>     
+            </TR>
+            <TR>
+            <TD>10:15 - 11:30</TD>
+            <TD>
+                <div class="slot">SLOT</div>
+                <hr>
+                <div class="batch">B.Tech - I</div>
+                <hr>
+                <div class="batch">B.Tech - II</div>
+                <hr>
+                <div class="batch">B.Tech - III</div>
+                <hr>
+                <div class="batch">B.Tech - IV</div>
+                <hr>
+                <div class="batch">M.Tech - I</div>
+                <hr>
+                <div class="batch">M.Tech - II</div>
+                <hr>
+                <div class="batch">Msc(IT) - I</div>
+                <hr>
+                <div class="batch">Msc(IT) - II</div>
+                <hr>
+
+            </TD>
+            <TD>
+                <div class="slot">SLOT 6</div>
+                <hr>
+                <!-- SLOT 6 -->   
+                <!-- PUT FOR LOOP HERE  -->
+                {% for i in slot6 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 2</div>
+                <hr>
+                <!-- SLOT 2 -->
+                {% for i in slot2 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 4</div>
+                <hr>
+                <!-- SLOT 4 -->
+                {% for i in slot4 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 5</div>
+                <hr>
+                <!-- SLOT 5 -->
+                {% for i in slot5 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 2</div>
+                <hr>
+                <!-- SLOT 2 -->
+                {% for i in slot2 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            </TR>
+            
+            <TR>
+            <TD>12:00 - 01:15</TD>
+            <TD>
+                <div class="slot">SLOT</div>
+                <hr>
+                <div class="batch">B.Tech - I</div>
+                <hr>
+                <div class="batch">B.Tech - II</div>
+                <hr>
+                <div class="batch">B.Tech - III</div>
+                <hr>
+                <div class="batch">B.Tech - IV</div>
+                <hr>
+                <div class="batch">M.Tech - I</div>
+                <hr>
+                <div class="batch">M.Tech - II</div>
+                <hr>
+                <div class="batch">Msc(IT) - I</div>
+                <hr>
+                <div class="batch">Msc(IT) - II</div>
+                <hr>
+
+            </TD>
+            <TD>
+                <div class="slot">SLOT 3</div>
+                <hr>
+                <!-- SLOT 3 -->
+                {% for i in slot3 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 5</div>
+                <hr>
+                <!-- SLOT 5 -->
+                {% for i in slot5 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 8</div>
+                <hr>
+                <!-- SLOT 8 -->
+                {% for i in slot8 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 1</div>
+                <hr>
+                <!-- SLOT 1 -->
+                {% for i in slot1 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            <TD>
+                <div class="slot">SLOT 7</div>
+                <hr>
+                <!-- SLOT 7 -->
+                {% for i in slot7 %}
+                        <div class="subject"> {{ i }} </div>
+                        <hr>
+                {% endfor %}
+{#                <div class="subject">(COURSE | PROFFESOR)</div>#}
+{#                <hr>#}
+            </TD>
+            </TR>
+        </TBODY>
+        </TABLE>
+  </body>
+</html>

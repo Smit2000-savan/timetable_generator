@@ -1,0 +1,78 @@
+{% extends 'base_coor.html'%}
+
+{% block title %}Add Courses{% endblock %}
+
+{% block content %}
+    <section class="section-cl">
+          <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center">
+              <div class="col-12 col-md-8 col-lg-6" style="width : 35.66666667%">
+                <div class="card shadow-2-strong login-card">
+                  <div class="card-body p-5 text-center">
+
+                    <h2>Add Courses</h2><br>
+                   <div class="container2">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <h5 style="color: #DFF6FF">{{ message }}</h5>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <br>
+                    <form action="c_courseRecord" method="post">
+                        {% csrf_token %}
+
+                    {% comment %} <h5 style="color: firebrick">{{notc}}</h5> {% endcomment %}
+                    <div class="form-outline mb-4" >
+                      <input type="text" name="courseName"  class="form-control form-control-lg" placeholder="Course Name" maxlength="75" required autofocus/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                     <input type="text" name="courseID"  class="form-control form-control-lg" placeholder="Course ID" minlength="5" maxlength="5" required/>
+                    </div>
+
+                     <div class="row addSlot">
+                        <div class="col-lg-6">
+                            <label style="font-size: 50%;">Course type :</label>
+                        </div>
+                                <div class="col-lg-6">
+                                    <select class="form-select addSlot" name="selecttype">
+{#                                        {% for i in selectcourses %}#}
+                                               <option value="core"> Core </option>
+                                               <option value="ICT_elective"> ICT Elective </option>
+                                               <option value="TECH_elective"> TECHNICAL Elective </option>
+                                               <option value="OPEN_elective"> OPEN Elective </option>
+                                               <option value="SCI_elective"> SCIENCE Elective </option>
+                                               <option value="CS_TECH_elective"> CS TECHNICAL Elective </option>
+                                               <option value="CS_OPEN_elective"> CS OPEN Elective </option>
+                                               <option value="CS_SCI_elective"> CS SCIENCE Elective </option>
+{#                                        {% endfor %}#}
+                                    </select>
+                                </div>
+                            </div>
+
+                    <div class="form-group">
+                            <div>
+                                <select class = "form-select" name="selectbatch">
+                                    {% for ibatch in selectbatches %}
+                                    <option value="{{ ibatch.bname }}"> {{ ibatch.bname }}</option>
+                                    {% endfor %}
+                                </select>
+{#                                <input type="text" class="form-control" name="batch" placeholder="">#}
+                            </div>
+                        </div>
+                        <br>
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+{% endblock %}
+
+

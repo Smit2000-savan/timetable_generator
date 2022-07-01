@@ -1,0 +1,61 @@
+{% extends 'base_coor.html'%}
+
+{% block title %} Slots {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 style="padding:2% 0">Slots </h2>
+        <div class="container2" align="middle">
+            {% if messages %}
+                {% for message in messages %}
+                    <h5 style="color: #181D31">{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
+        </div>
+            <div style="width:20%; margin:auto">
+                <form method="POST" action="c_add_slot">
+                    {%csrf_token%}
+                    <button type="submit" class="btn btn-dark btn-ml"> ADD Slot Details </button>
+                </form>
+            </div>
+
+            <div class="dcf-overflow-x-auto" tabindex="0" style="padding: 2% 8%;">
+                <table class="dcf-table dcf-table-bordered dcf-table-striped dcf-w-100%">
+                    <tbody>
+                        <tr>
+                            <td class="dcf-txt-center" scope="col">Slot</td>
+                            <td class="dcf-txt-center" scope="row">Course ID</td>
+                            <td class="dcf-txt-center" scope="row">Course Type</td>
+                            <td class="dcf-txt-center" scope="row">Professor</td>
+                            <td class="dcf-txt-center" scope="row">Batch</td>
+                            <td class="dcf-txt-center" scope="row">&#8205</td>
+                        </tr>
+                        {% for x in allslots%}
+                                    <tr class="slottables" data-class="{{ x.slt }}">
+                                        <th class="dcf-txt-center" scope="col"> {{x.slt}} </th>
+                                        <td class="dcf-txt-center" scope="col"> {{x.cid}} </td>
+                                        <td class="dcf-txt-center" scope="col"> {{x.type}} </td>
+                                        <td class="dcf-txt-center" scope="col"> {{x.prof}} </td>
+                                        <td class="dcf-txt-center" scope="col"> {{x.bname}} </td>
+                                        {% comment %} <td class="dcf-txt-center" scope="col">
+                                            <form method="POST" action="c_updateCourse">
+                                                {%csrf_token%}
+                                                    <button type="submit" class="btn btn-warning updateAndDeleteBtn"> UPDATE </button>
+                                            </form>
+                                        </td> {% endcomment %}
+                                        <td class="dcf-txt-center" scope="col">
+                                            <form method="POST" action="c_deleteSlot/{{ x.id }}">
+                                                {%csrf_token%}
+                                                <button type="submit" class="btn btn-danger updateAndDeleteBtn"> DELETE </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+
+{% endblock %}
