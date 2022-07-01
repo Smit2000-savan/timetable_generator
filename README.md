@@ -10,9 +10,9 @@ How to run this project:
 
  1. cd to the 'sri' folder (the folder where manage.py is found)
  2. Start virtual environment : 
-###	  env\scripts\activate 
+	    env\scripts\activate 
  3. Download all the required depedecies listed in 'requirements.txt' via following the command:
-###	  pip install -r requirements.txt	(this command will automatically download all required modules)
+	    pip install -r requirements.txt	(this command will automatically download all required modules)
  4. Run following command:
-###	  python manage.py runserver 
-###	  (if any error occur to run this command then do migrations first by doing 'python manage.py makemigrations' then 'python manage.py migrate')
+	    python manage.py runserver 
+ 	   (if any error occur to run this command then do migrations first by doing 'python manage.py makemigrations' then 'python manage.py migrate')
