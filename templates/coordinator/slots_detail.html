@@ -20,6 +20,18 @@
                 </form>
             </div>
 
+{#    <select name="selectslot">#}
+{#                <option value="1"> 1 </option>#}
+{#                <option value="2"> 2 </option>#}
+{#                <option value="3"> 3 </option>#}
+{#                <option value="4"> 4 </option>#}
+{#                <option value="5"> 5 </option>#}
+{#                <option value="6"> 6 </option>#}
+{#                <option value="7"> 7 </option>#}
+{#                <option value="8"> 8 </option>#}
+{#        </select>#}
+
+
             <div class="dcf-overflow-x-auto" tabindex="0" style="padding: 2% 8%;">
                 <table class="dcf-table dcf-table-bordered dcf-table-striped dcf-w-100%">
                     <tbody>
@@ -58,4 +70,24 @@
     </div>
 
 
-{% endblock %}
+{##}
+<!-- Script -->
+<script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    var temp = $(".slottables"), type=$("[name=selectslot]").val()
+    $("[name=selectslot]").change(function() {
+        batch = $(this).val()
+        console.log(temp)
+        $(".slottables").detach()
+        console.log($("[name=coursetables]"))
+        temp.filter(function(e){return $(this).data("class")===type }).clone().appendTo("tbody")
+       }).change()
+ </script>
+
+
+
+    {% endblock %}

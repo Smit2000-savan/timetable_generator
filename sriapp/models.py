@@ -9,8 +9,12 @@ class Course(models.Model):
     type = models.CharField(max_length=100)
 
 class Batch(models.Model):
-    bid = models.CharField(max_length=10)
+    # bid = models.CharField(max_length=10)
     bname = models.CharField(max_length=10)
+    # pname = models.CharField(max_)
+
+class Program(models.Model):
+    pname = models.CharField(max_length=10)
 
 class Prof(models.Model):
     fname = models.CharField(max_length=100)

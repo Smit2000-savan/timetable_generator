@@ -271,5 +271,34 @@
             </TR>
         </TBODY>
         </TABLE>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Batch</th>
+                    {% for curDay, val in allDays %}
+                        <th scope="col"> curDay </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td> 8:30 - 9:30 </td>
+                {% for curBatch in allBatches%}
+                    <tr>
+                        <td> curBatch </td>
+                        {% for curDay, val in allDays %}
+                            {{ time }}
+                            <td colspan="{{ data }}"
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+
   </body>
 </html>

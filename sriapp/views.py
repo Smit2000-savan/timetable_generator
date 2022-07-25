@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect,HttpResponse,HttpResponseRedirect,r
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout, get_user_model
 from django.contrib import messages
-from .models import Course, Available, Batch, Prof, Slots, P_pref, C_pref, Time_to_slot
+from .models import Course, Available, Batch, Prof, Slots, P_pref, C_pref, Time_to_slot, Program
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 
@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 # ------------------------------------- DATABASE QUERY FUNCTIONS ------------------------------------------------------- #
 
 from django.db import connection, transaction
+from pprint import pprint
 cursor = connection.cursor()
 
 def query_slot(ibatch,islot):
@@ -114,7 +115,7 @@ def p_index(request):
             messages.error(request, "Please select Valid Option")
 
         else :
-            iprof = u
+            # iprof = u
             old_p_pref = P_pref.objects.all().filter(prof = u).values()
             if old_p_pref[0]['cnt'] == 5:
                 messages.error(request, "You have reached Preferences limit. Kindly wait for Timetable to be ready.")
@@ -126,7 +127,7 @@ def p_index(request):
                 if not temp_slot.exists():
                     messages.error(request, "Sorry, Your course is not listed in this semester timetable. ")
                 else:
-                    old_c_pref = C_pref.objects.all().filter(slt = temp_slot[0]['slt']).values()
+                    old_cnt = C_pref.objects.all().filter(slt = temp_slot[0]['slt']).values()[0]['cnt']
                     C_pref.objects.all().filter(slt = temp_slot[0]['slt']).update( **{temp_day: old_c_pref[0][temp_day] + 1} )
                     P_pref.objects.filter(prof = u).update(cnt = old_p_pref[0]['cnt'] + 1)
                     messages.success(request, "your preferences are stored successfully.")
@@ -226,27 +227,47 @@ def c_index(request):
                 messages.error(request, "Please enter valid details. You have entered wrong data")
 
     u = request.user.first_name
+    tot_batch = []
+    for batch in Batch.objects.all().values():
+        tot_batch.append({'bname': batch['bname'], 'colspan': 1})
+    days = ['mn', 'tu', 'wd', 'th', 'fr']
+    times = ['8', '10', '12']
 
-    temp_all_slots = []
-    for i in Time_to_slot.objects.all().values():
-        temp_slot = { i['time'] : Slots.objects.all().filter(slt = i['slt']).order_by('bname').values() }
-        temp_all_slots.append(temp_slot)
+    time_table = {}
+    batch = {}
+    for time in times:
+        curr_time_table = []
+        # max_len = {}
+        for day in days:
+            curr_day_table = []
+            for batch in tot_batch:
+                curr_t = day + time
+                time_slt = Time_to_slot.objects.all().filter(time=curr_t).values()[0]
+                slot = list(Slots.objects.all().filter(slt=time_slt['slt'], bname=batch['bname']).values())
+                curr_day_table.append(slot)
+            curr_time_table.append(curr_day_table)
+        n = len(tot_batch)
+        curr_batch = []
+        for i in range(n):
+            max_len = 0
+            curr_batch.append(tot_batch[i])
+            for ee in range(len(days)):
+                max_len = max(max_len, len(curr_time_table[ee][i]))
+            for j in range(len(days)):
+                while len(curr_time_table[j][i]) < max_len:
+                    curr_time_table[j][i].append(' ')
+            for i in range(max_len - 1):
+                curr_batch.append(' ')
+        time_table[time] = curr_time_table
+        batch[time] = curr_batch
 
-    allcpref = C_pref.objects.all().values()
-    alltimetoslot = Time_to_slot.objects.all().values()
-    # allslot = Slots.objects.all().values()
-    allbatch = Batch.objects.all().values()
+    all_pref = C_pref.objects.all().values()
 
     context = {
-        'cfname': u,
-
-        'allcpref': allcpref,
-        'temp_all_slot': temp_all_slots,
-        'allbatch' : allbatch,
-
-        # 'alltimetoslot': alltimetoslot,
-        # 'allslot': allslot,
-
+        'cfname' : u,
+        'allcpref' : all_pref,
+        'batch': batch,
+        'time_table': time_table,
         'mn8': 0,
         'tu8': 0,
         'wd8': 0,
@@ -264,10 +285,10 @@ def c_index(request):
         'fr12': 0,
     }
 
-    for i in alltimetoslot:
+    for i in Time_to_slot.objects.all().values():
         context[i['time']] = i['slt']
 
-    return render(request, 'coordinator/c_index.html',context)
+    return render(request, 'coordinator/c_index.html', context)
 
 
 # ------------------------------------------------- #### COURSES PAGES ####------------------------------------------------------#
@@ -371,7 +392,7 @@ def c_batch(request):
         messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
         return redirect('Home')
 
-    batchDetails = Batch.objects.all().values()
+    batchDetails = Batch.objects.all().order_by('bname').values()
     context = {
         'allBatches' : batchDetails,
     }
@@ -388,7 +409,12 @@ def c_addBatch(request):
         messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
         return redirect('Home')
 
-    return render(request, 'coordinator/add_batches.html')
+    allProgs = Program.objects.all().order_by('pname').values()
+    context = {
+        'selectprogs' : allProgs,
+    }
+
+    return render(request, 'coordinator/add_batches.html',context)
 
 def c_bacthRecord(request):
     if not request.user.is_authenticated :
@@ -400,19 +426,20 @@ def c_bacthRecord(request):
         messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
         return redirect('Home')
 
-    batch_id = request.POST.get('batchID')
-    batch_name = request.POST.get('batchName')
+    # batch_name = request.POST.get('batchName')
+    prog_year = request.POST.get('Year')
+    prog_name = request.POST.get('selectprog')
 
-    if batch_id != "" and batch_name != "":
-        olddata_batch_name = Batch.objects.all().filter(bname = batch_name).values()
-        olddata_batch_id = Batch.objects.all().filter(bid = batch_id).values()
+    batch_data = prog_name + " " + prog_year
+    if prog_name != "" and prog_year != "":
+        olddata_batch_name = Batch.objects.all().filter(bname = batch_data).values()
 
-        if olddata_batch_id.exists() or olddata_batch_name.exists():
-            messages.error(request, "{} batch is already enrolled".format(batch_name))
+        if olddata_batch_name.exists():
+            messages.error(request, "{} batch is already enrolled".format(batch_data))
         else:
-            curBatch = Batch(bid=batch_id, bname=batch_name)
+            curBatch = Batch(bname=batch_data)
             curBatch.save()
-            messages.success(request, "Batch '{}' Added Successfully".format(batch_name))
+            messages.success(request, "Batch '{}' Added Successfully".format(batch_data))
     else:
         messages.error(request, "Please Enter Valid Fields")
         return redirect('addBatch')
@@ -476,6 +503,7 @@ def c_addFaculty(request):
 
 @csrf_exempt
 def c_facultyRecord(request):
+
     if not request.user.is_authenticated :
         messages.warning(request,"You are not Logged in. Please Log in to access the page.")
         return redirect('Home')
@@ -657,6 +685,83 @@ def c_deleteSlot(request, id):
 
     return redirect('cslot')
 
+# ------------------------------------------------- #### Program PAGES ####------------------------------------------------------#
+
+def c_prog(request):
+    if not request.user.is_authenticated :
+        messages.warning(request,"You are not Logged in. Please Log in to access the page.")
+        return redirect('Home')
+
+    # CHECKING IF LOGGED IN PROFESSOR TRIES TO ACCESS COORDINATOR URL #VIA CHANGE THE URL TO /c_index
+    if not request.user.is_superuser :
+        messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
+        return redirect('Home')
+
+    progDetails = Program.objects.all().order_by('pname').values()
+    context = {
+        'allProgs' : progDetails,
+    }
+    return render(request, 'coordinator/program_detail.html', context)
+
+@csrf_exempt
+def c_addProg(request):
+    if not request.user.is_authenticated :
+        messages.warning(request,"You are not Logged in. Please Log in to access the page.")
+        return redirect('Home')
+
+    # CHECKING IF LOGGED IN PROFESSOR TRIES TO ACCESS COORDINATOR URL #VIA CHANGE THE URL TO /c_index
+    if not request.user.is_superuser :
+        messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
+        return redirect('Home')
+
+    return render(request, 'coordinator/add_progs.html')
+
+def c_progRecord(request):
+    if not request.user.is_authenticated :
+        messages.warning(request,"You are not Logged in. Please Log in to access the page.")
+        return redirect('Home')
+
+    # CHECKING IF LOGGED IN PROFESSOR TRIES TO ACCESS COORDINATOR URL #VIA CHANGE THE URL TO /c_index
+    if not request.user.is_superuser :
+        messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
+        return redirect('Home')
+
+    prog_name = request.POST.get('progName')
+
+    if prog_name != "":
+        olddata_prog_name = Program.objects.all().filter(pname = prog_name).values()
+
+        if olddata_prog_name.exists():
+            messages.error(request, "{} Program is already enrolled".format(prog_name))
+        else:
+            curProg = Program(pname=prog_name)
+            curProg.save()
+            messages.success(request, "Porgram '{}' Added Successfully".format(prog_name))
+    else:
+        messages.error(request, "Please Enter Valid Fields")
+        return redirect('addProg')
+
+    return HttpResponseRedirect(reverse('cprog'))
+
+def c_deleteProg(request, id):
+    if not request.user.is_authenticated :
+        messages.warning(request,"You are not Logged in. Please Log in to access the page.")
+        return redirect('Home')
+
+    # CHECKING IF LOGGED IN PROFESSOR TRIES TO ACCESS COORDINATOR URL #VIA CHANGE THE URL TO /c_index
+    if not request.user.is_superuser :
+        messages.error(request, "You are not allowed to enter coordinator section without coordinator authentication.")
+        return redirect('Home')
+
+    try:
+        curProg = Program.objects.get(id=id)
+        curProg.delete()
+        messages.success(request, "Program deleted Successfully")
+
+    except Program.DoesNotExist:
+        messages.error(request, "Program can't be deleted. Maybe it is not Exist")
+
+    return HttpResponseRedirect(reverse('cprog'))
 
 # ------------------------------------------------- TEMPORARY VIEWS ------------------------------------------------------#
 
@@ -665,6 +770,9 @@ def Timetable(request):
 
     # if not request.user.is_authenticated:
     #     return redirect('p_login_user')
+
+    # c = Course.objects.all().filter(branch = 'B.tech 1').update(branch = 'B.tech-ICT 2022 I')
+    s = Course.objects.all().filter(branch = 'M.tech 1').update(branch = 'M.tech 2021 I')
     slot1 = get_slot(1)
     slot2 = get_slot(2)
     slot3 = get_slot(3)
@@ -677,19 +785,129 @@ def Timetable(request):
 
 
     allslot = Available.objects.all().values()
-    context = {
-        'allslots' : allslot,
-        'slot1': slot1,
-        'slot2': slot2,
-        'slot3': slot3,
-        'slot4': slot4,
-        'slot5': slot5,
-        'slot6': slot6,
-        'slot7': slot7,
-        'slot8': slot8
+    # context = {
+    #     'allslots' : allslot,
+    #     'slot1': slot1,
+    #     'slot2': slot2,
+    #     'slot3': slot3,
+    #     'slot4': slot4,
+    #     'slot5': slot5,
+    #     'slot6': slot6,
+    #     'slot7': slot7,
+    #     'slot8': slot8
+    # }
+
+    temp_all_slots = []
+    slot_lengths_batch = {
+        '8': {
+
+        },
+        '10': {
+
+        }, '12': {
+
+        }
     }
+
+    allbatch = Batch.objects.all().values()
+    for i in Time_to_slot.objects.all().values():
+        temp_slot = {i['time']: Slots.objects.all().filter(slt=i['slt']).order_by('bname').values()}
+        temp_all_slots.append(temp_slot)
+        curr_slot = Slots.objects.all().filter(slt=i['slt']).order_by('bname').values()
+        for b_slot in curr_slot:
+            if slot_lengths_batch[i['time'][2:]].get(b_slot['bname']) is not None and slot_lengths_batch[i['time'][2:]][
+                b_slot['bname']].get(i['time'][0:2]) is not None:
+                slot_lengths_batch[i['time'][2:]][b_slot['bname']][i['time'][0:2]] += 1
+            elif slot_lengths_batch[i['time'][2:]].get(b_slot['bname']) is not None:
+                slot_lengths_batch[i['time'][2:]][b_slot['bname']][i['time'][0:2]] = 1
+            else:
+                slot_lengths_batch[i['time'][2:]][b_slot['bname']] = {i['time'][0:2]: 1}
+    slot_batch_max = {
+        '8': {},
+        '10': {},
+        '12': {}
+    }
+    for key, value in slot_lengths_batch.items():
+        for key1, value1 in value.items():
+            slot_batch_max[key][key1] = max(value1.values())
+        # slot_batch_max[key] = max(value.values())
+    print(slot_lengths_batch)
+    print(slot_batch_max)
+    allcpref = C_pref.objects.all().values()
+    alltimetoslot = Time_to_slot.objects.all().values()
+
+
+    # context = {
+    #     'cfname': u,
+    #
+    #     'allcpref': allcpref,
+    #     'temp_all_slot': temp_all_slots,
+    #     'allbatch' : allbatch,
+    #     'slot_batch_max': slot_batch_max,
+    #     # 'alltimetoslot': alltimetoslot,
+    #     # 'allslot': allslot,
+    #
+    #     'mn8': 0,
+    #     'tu8': 0,
+    #     'wd8': 0,
+    #     'th8': 0,
+    #     'fr8': 0,
+    #     'mn10': 0,
+    #     'tu10': 0,
+    #     'wd10': 0,
+    #     'th10': 0,
+    #     'fr10': 0,
+    #     'mn12': 0,
+    #     'tu12': 0,
+    #     'wd12': 0,
+    #     'th12': 0,
+    #     'fr12': 0,
+    # }
+
+    # for i in alltimetoslot:
+    #     context[i['time']] = i['slt']
     # print(context)
-    return render(request, 'timetable/TIMETABLE.html',context)
+
+    # Dict = {1: 'Geeks', 2: 'For', 3: 'Geeks'}
+    allDays = {
+        'Monday': 'mn',
+        'Tuesday': 'tu',
+        'Wednesday': 'wd',
+        'Thursday': 'th',
+        'Friday': 'fr'
+    }
+
+    # Var = ["Geeks", "for", "Geeks"]
+    allBatches = Batch.objects.all.values()
+    allSlots = Slots.objects.all.values()
+    timeToSlot = Time_to_slot.objects.all.values()
+
+    context = {
+        'allSlots': allSlots,
+        'timeToSlot': timeToSlot,
+        'allBatches' : allBatches,
+        'mn8': 0,
+        'tu8': 0,
+        'wd8': 0,
+        'th8': 0,
+        'fr8': 0,
+        'mn10': 0,
+        'tu10': 0,
+        'wd10': 0,
+        'th10': 0,
+        'fr10': 0,
+        'mn12': 0,
+        'tu12': 0,
+        'wd12': 0,
+        'th12': 0,
+        'fr12': 0
+    }
+
+    for i in alltimetoslot:
+        context[i['time']] = i['slt']
+    print(context)
+
+    return render(request, 'timetable/TIMETABLE.html',context, allDays)
 
 
 

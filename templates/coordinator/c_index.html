@@ -4,6 +4,11 @@
 
 
 {% block content %}
+    <style>
+        span {
+            display: block;
+        }
+    </style>
     <h3 style="padding:2% 0"> Welcome... <b>{{ cfname }}</b></h3>
     <div align="middle">
         {% if messages %}
@@ -17,107 +22,95 @@
         Preview Timetable
       </button>
     <!-- </p> -->
-
     <div class="dcf-overflow-x-auto container collapse" id="collapseExample2" tabindex="0" style="padding: 0% 5%;">
         <h1 style="text-align: center; margin-bottom:3%;">Lecture TimeTable</h1>
     <table class="dcf-table dcf-table-bordered dcf-table-striped dcf-w-100% lectureTable">
         <tbody>
             <tr>
                 <td class="dcf-txt-center" scope="col">Time</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">8.30-9.45</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
+                <td class="dcf-txt-center" scope="row" colspan="9">8.30-9.45</td>
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Batch">Batch</td>
-                <td class="dcf-txt-center" data-label="Batch">&#8205</td>
+                <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
 
-                {%for i in allbatch %}
-                    <td class="dcf-txt-center" data-label="Batch">{{i.bname}}</td>
+                {%for i in batch.8 %}
+                    {% if i == ' ' %}
+                        <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
+                    {% else %}
+                        <td class="dcf-txt-center" data-label="Batch" colspan="{{ i.colspan }}">{{i.bname}}</td>
+                    {% endif %}
                 {%endfor%}
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Monday ">Monday</td>
                 <td class="dcf-txt-center" data-label="Monday ">Slot {{ mn8 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.mn8 %}
-                        <td class="dcf-txt-center" data-label="Monday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.8.0 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Tuesday">Tuesday</td>
                 <td class="dcf-txt-center" data-label="Tuesday">Slot {{ tu8 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.tu8 %}
-                        <td class="dcf-txt-center" data-label="Tuesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.8.1 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Wednesday">Wednesday</td>
                 <td class="dcf-txt-center" data-label="Wednesday">Slot {{ wd8 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.wd8 %}
-                        <td class="dcf-txt-center" data-label="Wednesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                 {% for data in time_table.8.2 %}
+                     {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Thursday">Thursday</td>
                  <td class="dcf-txt-center" data-label="Thursday">Slot {{ th8 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.th8 %}
-                        <td class="dcf-txt-center" data-label="Thursday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.8.3 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Friday">Friday</td>
                  <td class="dcf-txt-center" data-label="Friday">Slot {{ fr8 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.fr8 %}
-                        <td class="dcf-txt-center" data-label="Friday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.8.4 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td> -->
             </tr>
         </tbody>
     </table>
@@ -127,108 +120,84 @@
         <tbody>
             <tr>
                 <td class="dcf-txt-center" scope="col">Time</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">10.15-11.30</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
+                <td class="dcf-txt-center" scope="row" colspan="{{ batch.10.colspan }}">10.15-11.30</td>
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Batch">Batch</td>
-                <td class="dcf-txt-center" data-label="Batch">&#8205</td>
+                <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
 
-                {%for i in allbatch %}
-                    <td class="dcf-txt-center" data-label="Batch">{{i.bname}}</td>
+                {%for i in batch.10 %}
+                    {% if i == ' ' %}
+                        <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
+                    {% else %}
+                        <td class="dcf-txt-center" data-label="Batch" colspan="{{ i.colspan }}">{{i.bname}}</td>
+                    {% endif %}
                 {%endfor%}
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Monday ">Monday</td>
                 <td class="dcf-txt-center" data-label="Monday ">Slot {{ mn10 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.mn10 %}
-                        <td class="dcf-txt-center" data-label="Monday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.10.0 %}
+                        {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Tuesday">Tuesday</td>
                 <td class="dcf-txt-center" data-label="Tuesday">Slot {{ tu10 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.tu10 %}
-                        <td class="dcf-txt-center" data-label="Tuesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.10.1 %}
+                       {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Wednesday">Wednesday</td>
                 <td class="dcf-txt-center" data-label="Wednesday">Slot {{ wd10 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.wd10 %}
-                        <td class="dcf-txt-center" data-label="Wednesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                 {% for data in time_table.10.2 %}
+                        {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Thursday">Thursday</td>
                  <td class="dcf-txt-center" data-label="Thursday">Slot {{ th10 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.th10 %}
-                        <td class="dcf-txt-center" data-label="Thursday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.10.3 %}
+                        {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Friday">Friday</td>
                  <td class="dcf-txt-center" data-label="Friday">Slot {{ fr10 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.fr10 %}
-                        <td class="dcf-txt-center" data-label="Friday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.10.4 %}
+                        {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td> -->
             </tr>
         </tbody>
     </table>
@@ -238,341 +207,93 @@
         <tbody>
             <tr>
                 <td class="dcf-txt-center" scope="col">Time</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">12.00-1.15</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
-                <td class="dcf-txt-center" scope="row">&#8205</td>
+                <td class="dcf-txt-center" scope="row" colspan="9">12.00-1.15</td>
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Batch">Batch</td>
-                <td class="dcf-txt-center" data-label="Batch">&#8205</td>
-                {%for i in allbatch %}
-                    <td class="dcf-txt-center" data-label="Batch">{{i.bname}}</td>
+                <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
+                {%for i in batch.12 %}
+                    {% if i == ' ' %}
+                        <td class="dcf-txt-center" data-label="Batch">&nbsp;</td>
+                    {% else %}
+                        <td class="dcf-txt-center" data-label="Batch" colspan="{{ i.colspan }}">{{i.bname}}</td>
+                    {% endif %}
+{#                    <td class="dcf-txt-center" data-label="Batch" colspan="{{ i.colspan }}">{{i.bname}}</td>#}
                 {%endfor%}
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Monday ">Monday</td>
                 <td class="dcf-txt-center" data-label="Monday ">Slot {{ mn12 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.mn12 %}
-                        <td class="dcf-txt-center" data-label="Monday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.12.0 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td>
-                <td class="dcf-txt-center" data-label="Monday ">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Tuesday">Tuesday</td>
                 <td class="dcf-txt-center" data-label="Tuesday">Slot {{ tu12 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.tu12 %}
-                        <td class="dcf-txt-center" data-label="Tuesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.12.1 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td>
-                <td class="dcf-txt-center" data-label="Tuesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Wednesday">Wednesday</td>
                 <td class="dcf-txt-center" data-label="Wednesday">Slot {{ wd12 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.wd12 %}
-                        <td class="dcf-txt-center" data-label="Wednesday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                 {% for data in time_table.12.2 %}
+                     {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td>
-                <td class="dcf-txt-center" data-label="Wednesday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Thursday">Thursday</td>
                  <td class="dcf-txt-center" data-label="Thursday">Slot {{ th12 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.th12 %}
-                        <td class="dcf-txt-center" data-label="Thursday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.12.3 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td>
-                <td class="dcf-txt-center" data-label="Thursday">0</td> -->
             </tr>
             <tr>
                 <td class="dcf-txt-center" data-label="Friday">Friday</td>
                  <td class="dcf-txt-center" data-label="Friday">Slot {{ fr12 }}</td>
-                {% for slot in temp_all_slot %}
-                    {% for data in slot.fr12 %}
-                        <td class="dcf-txt-center" data-label="Friday">{{ data.cid }} | {{data.prof}}</td>
-                    {% endfor %}
+                {% for data in time_table.12.4 %}
+                    {% for dd in data %}
+                            {% if dd == ' ' %}
+                                <td class="dcf-txt-center" data-label="Monday" >&nbsp;</td>
+                            {% else %}
+                                <td class="dcf-txt-center" data-label="Monday" >{{ dd.cid }} | {{dd.prof}}</td>
+                            {% endif %}
+                        {% endfor %}
+{#                        <td class="dcf-txt-center" data-label="Monday" colspan="{{ data.colspan }}">{{ data.course.cid }} | {{data.course.prof}}</td>#}
                 {% endfor %}
-
-                <!-- <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td>
-                <td class="dcf-txt-center" data-label="Friday">0</td> -->
             </tr>
         </tbody>
     </table>
     </div>
-    <!-- <div class="container collapse" id="collapseExample2">
-            <H3 style="color: #DFF6FF" align="middle">Lecture Timetable</H3>
-            <TABLE class="myTimetable">
-            <THEAD>
-                <TR>
-                <TH></TH>
-                <TH>Batch</TH>
-                <TH>Monday</TH>
-                <TH>Tuesday</TH>
-                <TH>Wednesday</TH>
-                <TH>Thursday</TH>
-                <TH>Friday</TH>
-                </TR>
-            </THEAD>
-            <TBODY>
-                <TR>
-                <TD>8:30 - 9:45</TD>
-                <TD>
-                    <div class="slot">SLOT</div>
-                    <hr>
-                    <div class="batch">B.Tech - I</div>
-                    <hr>
-                    <div class="batch">B.Tech - II</div>
-                    <hr>
-                    <div class="batch">B.Tech - III</div>
-                    <hr>
-                    <div class="batch">B.Tech - IV</div>
-                    <hr>
-                    <div class="batch">M.Tech - I</div>
-                    <hr>
-                    <div class="batch">M.Tech - II</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - I</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - II</div>
-                    <hr>
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ mn8 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.mn8 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ tu8 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.tu8 %}
-
-                            {{ data.cid}} <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ wd8 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.wd8 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ th8 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.th8 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ fr8 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.fr8 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                </TR>
-                <TR>
-                <TD>10:15 - 11:30</TD>
-                <TD>
-                    <div class="slot">SLOT</div>
-                    <hr>
-                    <div class="batch">B.Tech - I</div>
-                    <hr>
-                    <div class="batch">B.Tech - II</div>
-                    <hr>
-                    <div class="batch">B.Tech - III</div>
-                    <hr>
-                    <div class="batch">B.Tech - IV</div>
-                    <hr>
-                    <div class="batch">M.Tech - I</div>
-                    <hr>
-                    <div class="batch">M.Tech - II</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - I</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - II</div>
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ mn10 }} </div>
-                    <hr>
-                     SLOT 4 
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.mn10 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ tu10 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.tu10 %}
-
-                            {{ data.cid}} <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">  Slot {{ wd10 }} </div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.wd10 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ th10 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.th10 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>    
-                    <div class="slot">Slot {{ fr10 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.fr10 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                </TR>
-
-                <TR>
-                <TD>12:00 - 01:15</TD>
-                <TD>
-                    <div class="slot">SLOT</div>
-                    <hr>
-                    <div class="batch">B.Tech - I</div>
-                    <hr>
-                    <div class="batch">B.Tech - II</div>
-                    <hr>
-                    <div class="batch">B.Tech - III</div>
-                    <hr>
-                    <div class="batch">B.Tech - IV</div>
-                    <hr>
-                    <div class="batch">M.Tech - I</div>
-                    <hr>
-                    <div class="batch">M.Tech - II</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - I</div>
-                    <hr>
-                    <div class="batch">Msc(IT) - II</div>
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ mn12 }}</div>
-                    <hr>
-                   SLOT 4 
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.mn12 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ tu12 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.tu12 %}
-
-                            {{ data.cid}} <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ wd12 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.wd12 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ th12 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.th12 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                <TD>
-                    <div class="slot">Slot {{ fr12 }}</div>
-                    <hr>
-                    {% for slot in temp_all_slot %}
-                        {% for data in slot.fr12 %}
-                            {{ data.cid}}  <hr>
-                        {% endfor %}
-                    {% endfor %}
-                </TD>
-                </TR>
-            </TBODY>
-            </TABLE>
-        </div>
-    <br> -->
 
 
     <!-- <p align="middle"> -->
@@ -736,97 +457,6 @@
             </div>
           </div>
         </section>
-
-    <!-- <div class="container" align="middle">
-        <form method="post" action="">
-            {% csrf_token %}
-            <h3 style="padding: 2% 0; text-align :left"> Slot to change the place </h3>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <select class="form-select" name ="dropdown11">
-                            <table>
-                                <tr> <td> <option>  Select Slot  </option> </td> </tr>
-                                <tr> <td> <option value=1> 1 </option> </td> </tr>
-                                <tr> <td> <option value=2> 2 </option> </td> </tr>
-                                <tr> <td> <option value=3> 3 </option> </td> </tr>
-                                <tr> <td> <option value=4> 4 </option> </td> </tr>
-                                <tr> <td> <option value=5> 5 </option> </td> </tr>
-                                <tr> <td> <option value=6> 6 </option> </td> </tr>
-                                <tr> <td> <option value=7> 7 </option> </td> </tr>
-                                <tr> <td> <option value=8> 8 </option> </td> </tr>
-                            </table>
-                        </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <select class="form-select" name ="dropdown12">
-                                <table>
-                                    <tr> <td> <option>  Select Day </option> </td> </tr>
-                                    <tr> <td> <option value="mn"> Monday </option> </td> </tr>
-                                    <tr> <td> <option value="tu"> Tuesday </option> </td> </tr>
-                                    <tr> <td> <option value="wd"> Wednesday </option> </td> </tr>
-                                    <tr> <td> <option value="th"> Thursday </option> </td> </tr>
-                                    <tr> <td> <option value="fr"> Friday </option> </td> </tr>
-                                </table>
-                            </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <select class="form-select" name ="dropdown13">
-                            <table>
-                                <tr> <td> <option>  Select Time </option> </td> </tr>
-                                <tr> <td> <option value="8">  8:30 - 9:45  </option> </td> </tr>
-                                <tr> <td> <option value="10"> 10:15 - 11:30 </option> </td> </tr>
-                                <tr> <td> <option value="12"> 12:00 - 1:15 </option> </td> </tr>
-                            </table>
-                        </select>
-                    </div>
-            </div>
-            <h3 style="padding: 2% 0; text-align :left"> Slot to change with whom </h3>
-            <div class="row">
-                <div class="col-lg-4">
-                    <select class="form-select" name ="dropdown21">
-                        <table>
-                            <tr> <td> <option>  Select Slot </option> </td> </tr>
-                            <tr> <td> <option value=1> 1 </option> </td> </tr>
-                            <tr> <td> <option value=2> 2 </option> </td> </tr>
-                            <tr> <td> <option value=3> 3 </option> </td> </tr>
-                            <tr> <td> <option value=4> 4 </option> </td> </tr>
-                            <tr> <td> <option value=5> 5 </option> </td> </tr>
-                            <tr> <td> <option value=6> 6 </option> </td> </tr>
-                            <tr> <td> <option value=7> 7 </option> </td> </tr>
-                            <tr> <td> <option value=8> 8 </option> </td> </tr>
-                        </table>
-                    </select>
-                </div>
-                <div class="col-lg-4">
-                    <select  class="form-select" name ="dropdown22">
-                        <table>
-                            <tr> <td> <option>  Select Day  </option> </td> </tr>
-                            <tr> <td> <option value="mn"> Monday </option> </td> </tr>
-                            <tr> <td> <option value="tu"> Tuesday </option> </td> </tr>
-                            <tr> <td> <option value="wd"> Wednesday </option> </td> </tr>
-                            <tr> <td> <option value="th"> Thursday </option> </td> </tr>
-                            <tr> <td> <option value="fr"> Friday </option> </td> </tr>
-                        </table>
-                    </select>
-                </div>
-                <div class="col-lg-4">
-                    <select class="form-select" name ="dropdown23">
-                        <table>
-                            <tr> <td> <option>  Select Time  </option> </td> </tr>
-                            <tr> <td> <option value="8">  8:30 - 9:45  </option> </td> </tr>
-                            <tr> <td> <option value="10"> 10:15 - 11:30 </option> </td> </tr>
-                            <tr> <td> <option value="12"> 12:00 - 1:15 </option> </td> </tr>
-                        </table>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <br>
-            <input type="submit" value="Select Slot timings">
-        </form>
-    </div> -->
-
-
 
 {% endblock %}
 

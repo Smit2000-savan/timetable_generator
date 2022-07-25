@@ -4,7 +4,9 @@ body {
   text-align: center;
   color: #181D31;
 }
-
+span {
+  display: block;
+}
 .big-heading {
   font-size: 3.5rem;
   line-height: 1.5;
@@ -67,7 +69,7 @@ body {
   border-radius: 1rem;
   margin: 3rem 0;
 }
-/* 
+/*
 .updateAndDeleteBtn {
   background-color: #FECD1A;
 } */
@@ -154,7 +156,7 @@ td {
 
 .dcf-table-striped tbody tr:ntd-of-type(2n) {
   background-color: var(--bg-table-stripe)
-} 
+}
 
 .dcf-table tdead td,
 .dcf-table tdead td {
@@ -286,7 +288,7 @@ td {
 
 .lectureTable tr td {
   display: block;
-} 
+}
 
 
 /*BODY {

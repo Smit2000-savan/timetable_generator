@@ -40,14 +40,12 @@
 	<tbody>
         <tr>
 			<td class="dcf-txt-center" scope="col">First Name</td>
-            <td class="dcf-txt-center" scope="row">Last ID</td>
             <td class="dcf-txt-center" scope="row">Email</td>
             <td class="dcf-txt-center" scope="row">&#8205</td>
 		</tr>
         {% for x in allFaculty%}
                     <tr>
-                        <td class="dcf-txt-center" scope="col"> {{x.first_name}} </td>
-                        <td class="dcf-txt-center" scope="col"> {{x.last_name}} </td>
+                        <td class="dcf-txt-center" scope="col"> {{x.first_name}} {{x.last_name}} </td>
                         <td class="dcf-txt-center" scope="col"> {{x.email}}  </td>
                         <!-- <td class="dcf-txt-center" scope="col">
                             <form method="POST" action="">
@@ -64,6 +62,7 @@
                     </tr>
                 {% endfor%}
     </tbody>
+    </div>
     </div>
 
 

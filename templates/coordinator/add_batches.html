@@ -31,13 +31,29 @@
                         {% csrf_token %}
 
                     {% comment %} <h5 style="color: firebrick">{{notc}}</h5> {% endcomment %}
+                    <div class="row addSlot">
+                        <div class="col-lg-6">
+                            <label style="font-size: 50%;"> Programs : </label>
+                        </div>
+                        <div class = "col-lg-6">
+                            <select class="form-select addSlot" name="selectprog">
+
+                                {% for i in selectprogs %}
+                                <option value="{{ i.pname }}"> {{ i.pname }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+{#                                <input type="text" class="form-control" name="batch" placeholder="">#}
+                    </div>
+                    <br>
                     <div class="form-outline mb-4" >
-                      <input type="text" name="batchName"  class="form-control form-control-lg" placeholder="Batch Name" required autofocus/>
+                      <input type="text" name="Year"  class="form-control form-control-lg" placeholder="Year_semester" required autofocus/>
                     </div>
 
-                    <div class="form-outline mb-4">
-                     <input type="text" name="batchID"  class="form-control form-control-lg" placeholder="Batch ID" required/>
-                    </div>
+{#                    <div class="form-outline mb-4" >#}
+{#                      <input type="text" name="progName"  class="form-control form-control-lg" placeholder="Program Name" required autofocus/>#}
+{#                    </div>#}
+
 
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         

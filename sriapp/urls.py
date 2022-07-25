@@ -92,6 +92,11 @@ urlpatterns = [
     path('c_slotRecord', views.c_slotRecord, name = 'cslotrecord'),
     path('c_deleteSlot/<int:id>', views.c_deleteSlot, name='deleteSlot'),
 
+    path('c_program', views.c_prog, name = 'cprog'),
+    path('c_addProg', views.c_addProg, name='addProg'),
+    path('c_progRecord', views.c_progRecord, name='progRecord'),
+    path('c_deleteProg/<int:id>', views.c_deleteProg, name='deleteProg'),
+
     # COMMON / TEMP ----
 
     path('logout_user', views.logout_user, name='logout_user'),
