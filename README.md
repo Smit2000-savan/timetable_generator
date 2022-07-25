@@ -1,4 +1,4 @@
-# timetable_generator
+# timetable_generator or Timetable Management System 
 
 This is a timetbale generator Web application made with the Django Framework and used django database for database management.
 This web application allows timetable coordinator to create the timetable of his wants.
